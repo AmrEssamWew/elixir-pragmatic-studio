@@ -4,6 +4,7 @@ defmodule Servy.Conv do
             path: "",
             code_status: nil,
             resp_body: "",
+            header: %{},
             param: %{} ,
             http_version: ""
 
