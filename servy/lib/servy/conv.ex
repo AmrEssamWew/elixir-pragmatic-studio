@@ -6,7 +6,9 @@ defmodule Servy.Conv do
             resp_body: "",
             header: %{},
             param: %{} ,
-            http_version: ""
+            http_version: "",
+            contant_type: "text/html"
+
 
   def responed_parameters(conv), do: "#{conv.http_version} #{conv.code_status} #{status_reason(conv.code_status)}"
 

@@ -7,6 +7,7 @@ defmodule Servy.Handler do
   import Servy.Filehandler, only: [handle_file: 2]
   alias Servy.Conv
   alias Servy.Bears
+  alias Servy.APIs.BearsAPI
   @pages_path Path.expand("../../Pages", __DIR__)
 
   def handle(request) do
@@ -30,6 +31,12 @@ defmodule Servy.Handler do
 
   def route(%Conv{method: "GET", path: "/bears"} = conv) do
     Bears.index(conv)
+  end
+  def route(%Conv{method: "GET", path: "/api/bears"} = conv) do
+    BearsAPI.index(conv)
+  end
+  def route(%Conv{method: "GET", path: "/api/bears/"<> id} = conv) do
+    BearsAPI.index(conv,id)
   end
 
   def route(%Conv{method: "GET", path: "/bears/" <> id} = conv) do
@@ -78,7 +85,7 @@ defmodule Servy.Handler do
     # TODO: Use values in the map to create an HTTP response string:
     """
     #{Conv.responed_parameters(conv)}
-    Content-Type: text/html
+    Content-Type: #{conv.contant_type}
     Content-Length: #{byte_size(conv.resp_body)}
 
     #{conv.resp_body}
@@ -122,7 +129,7 @@ end
 # IO.puts(response)
 
 # request = """
-# GET /bigfoot HTTP/1.1
+# GET /api/bears HTTP/1.1
 # Host: example.com
 # User-Agent: ExampleBrowser/1.0
 # Accept: */*
@@ -130,6 +137,7 @@ end
 # """
 
 # response = Servy.Handler.handle(request)
+
 
 # IO.puts(response)
 
