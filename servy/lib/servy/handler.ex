@@ -8,6 +8,8 @@ defmodule Servy.Handler do
   alias Servy.Conv
   alias Servy.Bears
   alias Servy.APIs.BearsAPI
+  alias Servy.VideoCam
+  # alias Servy.Tracker
   @pages_path Path.expand("../../Pages", __DIR__)
 
   def handle(request) do
@@ -25,6 +27,17 @@ defmodule Servy.Handler do
   def rewrite_request(%Conv{path: "bears?id=" <> id} = conv), do: %{conv | path: "bears/#{id}"}
   def rewrite_request(conv), do: conv
 
+  def route(%Conv{ method: "GET", path: "/snapshots" } = conv) do
+    # snapshot1 = VideoCam.get_snapshot("cam-1")
+    # snapshot2 = VideoCam.get_snapshot("cam-2")
+    # snapshot3 = VideoCam.get_snapshot("cam-3")
+    # snapshots = [snapshot1, snapshot2, snapshot3]
+    snaps=["cam-1","cam-2","cam-3"]
+    |> Enum.map(&(Task.async(fn -> VideoCam.get_snapshot(&1)end)))
+    |>Enum.map(&Task.await(&1))
+
+    %{ conv | code_status: 200, resp_body: inspect snaps }
+   end
   def route(%Conv{method: "GET", path: "/wildthings"} = conv) do
     %{conv | code_status: 200, resp_body: "Bears, Lions, Tigers"}
   end
