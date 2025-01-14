@@ -41,6 +41,13 @@ defmodule Servy.Handler do
   def route(%Conv{method: "GET", path: "/wildthings"} = conv) do
     %{conv | code_status: 200, resp_body: "Bears, Lions, Tigers"}
   end
+  def route(%Conv{method: "POST", path: "/pledges"} = conv) do
+    Servy.PledgeController.create(conv, conv.param)
+  end
+
+  def route(%Conv{method: "GET", path: "/pledges"} = conv) do
+    Servy.PledgeController.index(conv)
+  end
 
   def route(%Conv{method: "GET", path: "/bears"} = conv) do
     Bears.index(conv)
