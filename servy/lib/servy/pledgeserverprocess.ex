@@ -1,5 +1,8 @@
-defmodule Servy.PledgeServer do
-  @name :pledge_server
+defmodule Servy.PledgeServerProcess do
+  @doc """
+  This module this doing the same as PLedgeServerGen module but using processes that maintain state by passing messages with each other
+  """
+  @name :pledge_server_process
   def start_server() do
     spawn(__MODULE__, :listen_loop, [])
     |> Process.register(@name)
@@ -24,7 +27,6 @@ defmodule Servy.PledgeServer do
 
       _ ->
         "Error while fetching the most recent data"
-        # code
     end
   end
 

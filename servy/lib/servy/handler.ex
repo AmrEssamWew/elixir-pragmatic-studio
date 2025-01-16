@@ -27,6 +27,11 @@ defmodule Servy.Handler do
   def rewrite_request(%Conv{path: "bears?id=" <> id} = conv), do: %{conv | path: "bears/#{id}"}
   def rewrite_request(conv), do: conv
 
+  @spec route(%{:path => any(), optional(any()) => any()}) :: %{
+          :code_status => 200 | 201 | 403 | 404 | 500,
+          :resp_body => any(),
+          optional(any()) => any()
+        }
   def route(%Conv{ method: "GET", path: "/snapshots" } = conv) do
     # snapshot1 = VideoCam.get_snapshot("cam-1")
     # snapshot2 = VideoCam.get_snapshot("cam-2")

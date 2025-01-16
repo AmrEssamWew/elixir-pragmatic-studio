@@ -1,7 +1,7 @@
 defmodule PledgeServerTest do
   use ExUnit.Case
 
-  import Servy.PledgeServer, only: [start_server: 0,create_pledge: 2 ,recent_pledges: 0]
+  import Servy.PledgeServerGen, only: [start_server: 0,create_pledge: 2 ,recent_pledges: 0]
 
   test "Post 3 requestes and get the cached values" do
     start_server()
