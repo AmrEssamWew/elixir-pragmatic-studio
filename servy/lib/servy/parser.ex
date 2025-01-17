@@ -1,6 +1,13 @@
 defmodule Servy.Parser do
+  @doc """
+  this module parses the http request
+  """
   alias Servy.Conv
 
+  @doc """
+  this funcation splite the reuest to 2 parts the http headers and the paramters if found
+   and parses the headers and the parameters to the struct
+  """
   def parse(request) do
     request=String.replace(request, "\r", "")
     [request_top, params_line] =
@@ -28,6 +35,7 @@ defmodule Servy.Parser do
   %{"name"=>"Baloo" , "type"=> "Brown"}
 
   """
+
   def parse_params(" application/x-www-form-urlencoded",params_line) do
       params_line
       |> String.trim()

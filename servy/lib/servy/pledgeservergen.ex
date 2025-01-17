@@ -13,7 +13,7 @@ defmodule Servy.PledgeServerGen do
   """
   use GenServer
   @name :pledges_server
-  def start_server, do: GenServer.start(__MODULE__, %Pledges{}, name: @name)
+  def start_link(_), do: GenServer.start_link(__MODULE__, %Pledges{}, name: @name)
 
   def init(init_arg) do
     {:ok, init_arg}

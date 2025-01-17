@@ -1,5 +1,7 @@
 defmodule Servy.Conv do
-
+@doc """
+this to define the struct that while carry all the data needed to generate the http response
+"""
   defstruct method: "",
             path: "",
             code_status: nil,

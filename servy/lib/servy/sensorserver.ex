@@ -5,7 +5,7 @@ defmodule Servy.SensorServer do
   """
   use GenServer
   alias Servy.VideoCam
-  def start_server, do: GenServer.start(__MODULE__, %{}, name: __MODULE__)
+  def start_link(_), do: GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
 
   def init(_init_arg) do
 
@@ -17,10 +17,10 @@ defmodule Servy.SensorServer do
     IO.inspect(new_state)
     {:noreply,new_state}
   end
-@doc """
-a funcation simulates fetching the data from the sensors
-"""
+
   defp get_sensors_data do
+    #a funcation simulates fetching the data from the sensors
+
     Process.send_after(self(),:update,:timer.seconds(7))
     ["cam-1", "cam-2", "cam-3"]
     |> Enum.map(&Task.async(fn -> VideoCam.get_snapshot(&1) end))
