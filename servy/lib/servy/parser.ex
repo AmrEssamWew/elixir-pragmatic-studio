@@ -1,6 +1,9 @@
 defmodule Servy.Parser do
   @moduledoc """
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
   this module parses the http request
   """
   alias Servy.Conv
