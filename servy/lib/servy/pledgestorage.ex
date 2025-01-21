@@ -1,4 +1,7 @@
 defmodule Servy.Pledgestorage do
+  @doc """
+  Using ETS to store the Pledges and fetch them when needed
+  """
   use GenServer, restart: :transient
   @storage_table :pledgeslist
   def start_link(_) do
