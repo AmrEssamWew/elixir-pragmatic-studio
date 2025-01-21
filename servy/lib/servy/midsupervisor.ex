@@ -7,7 +7,7 @@ defmodule Servy.MidSupervisor do
   def start_link(_), do: Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
 
   def init(:ok) do
-    [Servy.SensorServer, Servy.PledgeServerGen]
+    [Servy.SensorServer, Servy.Pledgestorage]
    |> Supervisor.init(strategy: :one_for_one)
   end
 end
